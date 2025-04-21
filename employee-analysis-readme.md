@@ -59,7 +59,7 @@ FROM EMPLOYEES e;
 
 **Real-life Application:** This type of analysis is useful for tracking salary progression within departments, identifying salary disparities, and analyzing wage growth patterns.
 
- 2. Ranking Data within a Category (RANK/DENSE_RANK)
+ ## 2. Ranking Data within a Category (RANK/DENSE_RANK)
 
 This query demonstrates the difference between `RANK()` and `DENSE_RANK()` by ranking employees within each department based on their salaries.
 
@@ -77,7 +77,7 @@ FROM EMPLOYEES e;
 
 **Real-life Application:** These ranking functions help identify top performers in terms of compensation, facilitate salary benchmarking, and support compensation review processes.
 
- 3. Identifying Top Records
+ ## 3. Identifying Top Records
 
 This query retrieves the top 3 highest-paid employees from each department.
 
@@ -96,7 +96,7 @@ WHERE x.rnk <= 3;
 
 **Real-life Application:** Companies often need to identify their highest-paid employees for compensation review, talent retention strategies, or budget planning.
 
- 4. Finding the Earliest Records
+ ## 4. Finding the Earliest Records
 
 This query retrieves the first 2 employees hired in each department.
 
@@ -115,7 +115,7 @@ WHERE x.rn < 3;
 
 **Real-life Application:** This analysis helps identify the most senior employees by tenure, which is valuable for succession planning, recognition programs, or historical analysis of hiring patterns.
 
- 5. Aggregation with Window Functions
+ ## 5. Aggregation with Window Functions
 
 This query displays all employee records along with department maximum salary and overall maximum salary.
 
@@ -132,3 +132,9 @@ FROM EMPLOYEES e;
 - This approach allows comparing individual salaries to department and company-wide maximums in a single query
 
 **Real-life Application:** This type of analysis helps in understanding salary distributions, identifying departments with higher compensation, and providing context for individual salaries relative to various benchmarks.
+
+## Conclusion
+
+SQL Window Functions provide powerful analytical capabilities that allow us to perform complex calculations across related rows of data. In this project, we've demonstrated various applications of these functions in the context of employee data analysis. These techniques can be applied to real-world business scenarios like compensation analysis, employee tenure tracking, and departmental performance benchmarking.
+
+Window functions eliminate the need for complex self-joins or subqueries, resulting in more readable and maintainable code while providing deeper insights into the data.
