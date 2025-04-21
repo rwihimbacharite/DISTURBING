@@ -114,3 +114,21 @@ WHERE x.rn < 3;
 - We then filter to keep only the first 2 employees from each department
 
 **Real-life Application:** This analysis helps identify the most senior employees by tenure, which is valuable for succession planning, recognition programs, or historical analysis of hiring patterns.
+
+ 5. Aggregation with Window Functions
+
+This query displays all employee records along with department maximum salary and overall maximum salary.
+
+```sql
+SELECT e.*,
+    MAX(salary) OVER (PARTITION BY dept_name) AS dept_max_salary,
+    MAX(salary) OVER () AS overall_max_salary
+FROM EMPLOYEES e;
+```
+
+**Explanation:**
+- `MAX(salary) OVER (PARTITION BY dept_name)` calculates the maximum salary within each department
+- `MAX(salary) OVER ()` calculates the maximum salary across all employees
+- This approach allows comparing individual salaries to department and company-wide maximums in a single query
+
+**Real-life Application:** This type of analysis helps in understanding salary distributions, identifying departments with higher compensation, and providing context for individual salaries relative to various benchmarks.
