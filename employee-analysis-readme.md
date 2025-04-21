@@ -95,3 +95,22 @@ WHERE x.rnk <= 3;
 - This handles tie cases appropriately, as `RANK()` will give the same rank to employees with identical salaries
 
 **Real-life Application:** Companies often need to identify their highest-paid employees for compensation review, talent retention strategies, or budget planning.
+
+ 4. Finding the Earliest Records
+
+This query retrieves the first 2 employees hired in each department.
+
+```sql
+SELECT * FROM(
+    SELECT e.*,
+        ROW_NUMBER() OVER (PARTITION BY dept_name ORDER BY hiring_date ASC) AS rn
+    FROM EMPLOYEES e) x
+WHERE x.rn < 3;
+```
+
+**Explanation:**
+- `ROW_NUMBER()` assigns a sequential number to each row within each department partition
+- The rows are ordered by hiring date (earliest first)
+- We then filter to keep only the first 2 employees from each department
+
+**Real-life Application:** This analysis helps identify the most senior employees by tenure, which is valuable for succession planning, recognition programs, or historical analysis of hiring patterns.
