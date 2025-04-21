@@ -58,3 +58,21 @@ FROM EMPLOYEES e;
 - The `ORDER BY emp_id` determines the previous/next relationship
 
 **Real-life Application:** This type of analysis is useful for tracking salary progression within departments, identifying salary disparities, and analyzing wage growth patterns.
+
+ 2. Ranking Data within a Category (RANK/DENSE_RANK)
+
+This query demonstrates the difference between `RANK()` and `DENSE_RANK()` by ranking employees within each department based on their salaries.
+
+```sql
+SELECT e.*,
+    RANK() OVER (PARTITION BY dept_name ORDER BY salary DESC) AS rnk,
+    DENSE_RANK() OVER (PARTITION BY dept_name ORDER BY salary DESC) AS DENSE_rnk
+FROM EMPLOYEES e;
+```
+
+**Explanation:**
+- Both functions rank employees based on salary (highest to lowest) within each department
+- `RANK()` leaves gaps in the ranking sequence when there are ties (e.g., 1, 2, 2, 4)
+- `DENSE_RANK()` does not leave gaps when there are ties (e.g., 1, 2, 2, 3)
+
+**Real-life Application:** These ranking functions help identify top performers in terms of compensation, facilitate salary benchmarking, and support compensation review processes.
