@@ -37,3 +37,24 @@ FROM EMPLOYEES e;
 ![next1](3.png)
 ![next 2](4.png)
 ![next 3](5.png)
+
+We also created a version that labels whether each salary is higher, lower, or the same as the previous employee's salary:
+
+```sql
+SELECT e.*,
+    LAG(salary) OVER (PARTITION BY dept_name ORDER BY emp_id) AS prev_emp_salary,
+    CASE 
+        WHEN e.salary > LAG(salary) OVER (PARTITION BY dept_name ORDER BY emp_id) THEN 'Higher than the previous employee'
+        WHEN e.salary < LAG(salary) OVER (PARTITION BY dept_name ORDER BY emp_id) THEN 'Lower than the previous employee'
+        WHEN e.salary = LAG(salary) OVER (PARTITION BY dept_name ORDER BY emp_id) THEN 'Same as previous employee'
+    END sal_range
+FROM EMPLOYEES e;
+```
+![part 2]](nm1.png) ![part 2]](nm2.png) ![part 2]](nm3.png) ![part 2]](nm4.png) ![part 2]](nm5.png)
+**Explanation:** 
+- `LAG()` looks at the previous row in the sorted partition
+- `LEAD()` looks at the next row in the sorted partition
+- The `PARTITION BY dept_name` ensures we're only comparing within the same department
+- The `ORDER BY emp_id` determines the previous/next relationship
+
+**Real-life Application:** This type of analysis is useful for tracking salary progression within departments, identifying salary disparities, and analyzing wage growth patterns.
