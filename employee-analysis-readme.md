@@ -76,3 +76,22 @@ FROM EMPLOYEES e;
 - `DENSE_RANK()` does not leave gaps when there are ties (e.g., 1, 2, 2, 3)
 
 **Real-life Application:** These ranking functions help identify top performers in terms of compensation, facilitate salary benchmarking, and support compensation review processes.
+
+ 3. Identifying Top Records
+
+This query retrieves the top 3 highest-paid employees from each department.
+
+```sql
+SELECT * FROM(
+    SELECT e.*,
+        RANK() OVER (PARTITION BY dept_name ORDER BY salary DESC) AS rnk
+    FROM EMPLOYEES e) x
+WHERE x.rnk <= 3;
+```
+
+**Explanation:**
+- We first assign a rank to each employee within their department based on salary
+- Then we filter to keep only the top 3 ranks from each department
+- This handles tie cases appropriately, as `RANK()` will give the same rank to employees with identical salaries
+
+**Real-life Application:** Companies often need to identify their highest-paid employees for compensation review, talent retention strategies, or budget planning.
